@@ -1,0 +1,57 @@
+{
+    "name": "eolica/hubspot-api-client",
+    "description": "Hubspot API PHP client",
+    "version": "1.0.0",
+    "keywords": [
+        "eolica",
+        "hubspot"
+    ],
+    "homepage": "https://github.com/Eolica-Web/php-hubspot-api-client",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "David Llobell",
+            "email": "dllobell@eolicadigital.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "php-http/client-common": "^2.7",
+        "php-http/discovery": "^1.19",
+        "php-http/message": "^1.16",
+        "psr/http-client-implementation": "1.0",
+        "psr/http-factory-implementation": "1.0"
+    },
+    "require-dev": {
+        "eolica/coding-standard": "^2.0",
+        "guzzlehttp/guzzle": "^7.9",
+        "mockery/mockery": "^1.6",
+        "pestphp/pest": "^3.0",
+        "php-http/mock-client": "^1.6",
+        "phpstan/phpstan": "^1.12",
+        "phpstan/phpstan-mockery": "^1.1",
+        "rector/rector": "^1.2",
+        "symfony/var-dumper": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Eolica\\Hubspot\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Eolica\\Hubspot\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": false
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
