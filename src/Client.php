@@ -49,6 +49,11 @@ final readonly class Client
         return new Resources\BlogPosts($this->transporter);
     }
 
+    public function contacts(): Resources\Contacts
+    {
+        return new Resources\Contacts($this->transporter);
+    }
+
     public function deals(): Resources\Deals
     {
         return new Resources\Deals($this->transporter);
