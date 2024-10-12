@@ -4,33 +4,14 @@ declare(strict_types=1);
 
 namespace Eolica\Hubspot\Resources;
 
-use Eolica\Hubspot\Http\Response;
-use Eolica\Hubspot\Resources\Owners\ListResponse;
-use Eolica\Hubspot\Resources\Owners\ReadResponse;
+use Eolica\Hubspot\Http\Transporter;
 
-final readonly class Owners extends Resource
+final readonly class Owners
 {
-    public function list(?string $email = null, ?int $limit = null, ?string $after = null, ?bool $archived = null): ListResponse
+    public function __construct(private Transporter $transporter) {}
+
+    public function v3(): Owners\V3\Owners
     {
-        /** @var Response<array{results: array<array{id: string, email: string, type: string, firstName: string, lastName: string, userId: int, userIdIncludingInactive: int, createdAt: string, updatedAt: string, archived: bool, teams: array<array{id: string, name: string, primary: bool}>}>, paging?: array{next: array{after: string, link: string}}}> */
-        $response = $this->transporter->get('/crm/v3/owners', [
-            'email' => $email,
-            'limit' => $limit,
-            'after' => $after,
-            'archived' => $archived,
-        ]);
-
-        return ListResponse::fromResponse($response);
-    }
-
-    public function read(string $id, ?bool $archived = null, ?string $idProperty = null): ReadResponse
-    {
-        /** @var Response<array{id: string, email: string, type: string, firstName: string, lastName: string, userId: int, userIdIncludingInactive: int, createdAt: string, updatedAt: string, archived: bool, teams: array<array{id: string, name: string, primary: bool}>}> */
-        $response = $this->transporter->get("/crm/v3/owners/{$id}", [
-            'archived' => $archived,
-            'idProperty' => $idProperty,
-        ]);
-
-        return ReadResponse::fromResponse($response);
+        return new Owners\V3\Owners($this->transporter);
     }
 }

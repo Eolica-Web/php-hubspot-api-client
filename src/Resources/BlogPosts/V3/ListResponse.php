@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eolica\Hubspot\Resources\BlogPosts;
+namespace Eolica\Hubspot\Resources\BlogPosts\V3;
 
 use Eolica\Hubspot\Http\Meta;
 use Eolica\Hubspot\Http\Response;

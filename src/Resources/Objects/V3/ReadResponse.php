@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Eolica\Hubspot\Resources\Contacts;
+namespace Eolica\Hubspot\Resources\Objects\V3;
 
 use Eolica\Hubspot\Http\Meta;
 use Eolica\Hubspot\Http\Response;
 
-final readonly class UpdateResponse
+final readonly class ReadResponse
 {
     /**
      * @param array<string, string> $properties
      */
-    public function __construct(
+    private function __construct(
         public string $id,
         public array $properties,
         public string $createdAt,

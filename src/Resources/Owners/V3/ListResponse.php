@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Eolica\Hubspot\Resources\Owners;
+namespace Eolica\Hubspot\Resources\Owners\V3;
 
 use Eolica\Hubspot\Http\Meta;
 use Eolica\Hubspot\Http\Response;
