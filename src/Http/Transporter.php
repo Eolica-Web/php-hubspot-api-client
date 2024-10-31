@@ -86,6 +86,7 @@ final readonly class Transporter
             if ($response->getStatusCode() >= 400) {
                 throw match ($response->getStatusCode()) {
                     401 => new UnauthorizedErrorException($data['message'], $response),
+                    403 => new ForbiddenErrorException($data['message'], $response),
                     default => new RuntimeException($data['message'], $response->getStatusCode()),
                 };
             }
