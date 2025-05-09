@@ -59,4 +59,17 @@ final readonly class Deals extends Resource
 
         return ReadResponse::fromResponse($response);
     }
+
+    /**
+     * @param array<string, mixed> $properties
+     */
+    public function update(string $id, array $properties, ?string $idProperty = null): UpdateResponse
+    {
+        /** @var Response<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool}> */
+        $response = $this->transporter->patch("/crm/v3/objects/deals/{$id}", [
+            'properties' => $properties,
+        ], ['idProperty' => $idProperty]);
+
+        return UpdateResponse::fromResponse($response);
+    }
 }
