@@ -9,7 +9,7 @@ use Eolica\Hubspot\Resources\Resource;
 
 final readonly class Owners extends Resource
 {
-    public function list(?string $email = null, ?int $limit = null, ?string $after = null, ?bool $archived = null): ListResponse
+    public function all(?string $email = null, ?int $limit = null, ?string $after = null, ?bool $archived = null): ListResponse
     {
         /** @var Response<array{results: array<array{id: string, email: string, type: string, firstName: string, lastName: string, userId: int, userIdIncludingInactive: int, createdAt: string, updatedAt: string, archived: bool, teams: array<array{id: string, name: string, primary: bool}>}>, paging?: array{next: array{after: string, link: string}}}> */
         $response = $this->transporter->get('/crm/v3/owners', [
