@@ -15,7 +15,7 @@ final readonly class BlogPosts extends Resource
      * @param array<array{field: 'archivedAt'|'blogAuthorId'|'campaign'|'contentGroupId'|'createdAt'|'createdById'|'id'|'name'|'publishDate'|'slug'|'state'|'tagId'|'translatedFromId'|'updatedAt'|'updatedById', operator: string, value: mixed}> $filters
      * @param 'DRAFT'|'PUBLISHED'|'SCHEDULED' $state
      */
-    public function list(
+    public function all(
         ?array $filters = null,
         ?string $state = null,
         ?string $sort = null,

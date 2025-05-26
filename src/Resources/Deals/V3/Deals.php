@@ -14,7 +14,7 @@ final readonly class Deals extends Resource
      * @param list<string>|null $propertiesWithHistory
      * @param list<string>|null $associations
      */
-    public function list(
+    public function all(
         ?int $limit = null,
         ?string $after = null,
         ?array $properties = null,
