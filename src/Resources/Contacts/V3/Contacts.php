@@ -36,6 +36,21 @@ final readonly class Contacts extends Resource
 
     /**
      * @param array<string, mixed> $properties
+     * @param list<array{types: list<array{associationCategory: 'HUBSPOT_DEFINED'|'INTEGRATOR_DEFINED'|'USER_DEFINED', associationTypeId: int}>, to: array{id: string}}> $associations
+     */
+    public function create(array $properties, ?array $associations = null): CreateResponse
+    {
+        /** @var Response<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool}> */
+        $response = $this->transporter->post('/crm/v3/objects/contacts', [
+            'properties' => $properties,
+            'associations' => $associations,
+        ]);
+
+        return CreateResponse::fromResponse($response);
+    }
+
+    /**
+     * @param array<string, mixed> $properties
      */
     public function update(string $id, array $properties, ?string $idProperty = null): UpdateResponse
     {
