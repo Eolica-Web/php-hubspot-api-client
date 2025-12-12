@@ -18,7 +18,7 @@ final readonly class Transporter
      *
      * @return Response<array<array-key, mixed>>
      */
-    public function get(string $path, array $parameters): Response
+    public function get(string $path, array $parameters = []): Response
     {
         return $this->parseResponse($this->client->get($this->buildUri($path, $parameters)));
     }
@@ -29,7 +29,7 @@ final readonly class Transporter
      *
      * @return Response<array<array-key, mixed>>
      */
-    public function post(string $path, array $body, array $parameters = []): Response
+    public function post(string $path, array $body = [], array $parameters = []): Response
     {
         return $this->parseResponse($this->client->post($this->buildUri($path, $parameters), body: $this->parseBody($body)));
     }
@@ -40,9 +40,30 @@ final readonly class Transporter
      *
      * @return Response<array<array-key, mixed>>
      */
-    public function patch(string $path, array $body, array $parameters = []): Response
+    public function put(string $path, array $body = [], array $parameters = []): Response
+    {
+        return $this->parseResponse($this->client->put($this->buildUri($path, $parameters), body: $this->parseBody($body)));
+    }
+
+    /**
+     * @param array<string, mixed> $body
+     * @param array<string, mixed> $parameters
+     *
+     * @return Response<array<array-key, mixed>>
+     */
+    public function patch(string $path, array $body = [], array $parameters = []): Response
     {
         return $this->parseResponse($this->client->patch($this->buildUri($path, $parameters), body: $this->parseBody($body)));
+    }
+
+    /**
+     * @param array<string, mixed> $parameters
+     *
+     * @return Response<array<array-key, mixed>>
+     */
+    public function delete(string $path, array $parameters = []): Response
+    {
+        return $this->parseResponse($this->client->delete($this->buildUri($path, $parameters)));
     }
 
     /**
@@ -79,6 +100,23 @@ final readonly class Transporter
             throw new NotFoundErrorException($response);
         }
 
+        $data = $this->unserializeResponseBody($response);
+
+        /** @var array{x-hubspot-correlation-id: array<string>, x-hubspot-ratelimit-daily: array<string>, x-hubspot-ratelimit-daily-remaining: array<string>, x-hubspot-ratelimit-interval-milliseconds: array<string>, x-hubspot-ratelimit-max: array<string>, x-hubspot-ratelimit-remaining: array<string>, x-hubspot-ratelimit-secondly: array<string>, x-hubspot-ratelimit-secondly-remaining: array<string>, x-request-id: array<string>} */
+        $headers = $response->getHeaders();
+
+        return new Response($data, Meta::fromHeaders($headers));
+    }
+
+    /**
+     * @return array<array-key, mixed>
+     */
+    private function unserializeResponseBody(ResponseInterface $response): array
+    {
+        if ($response->getStatusCode() === 204) {
+            return [];
+        }
+
         try {
             /** @var array{message: string, category: string} $data */
             $data = json_decode($response->getBody()->getContents(), associative: true, flags: JSON_THROW_ON_ERROR);
@@ -94,9 +132,6 @@ final readonly class Transporter
             throw new UnserializableResponseException($e);
         }
 
-        /** @var array{x-hubspot-correlation-id: array<string>, x-hubspot-ratelimit-daily: array<string>, x-hubspot-ratelimit-daily-remaining: array<string>, x-hubspot-ratelimit-interval-milliseconds: array<string>, x-hubspot-ratelimit-max: array<string>, x-hubspot-ratelimit-remaining: array<string>, x-hubspot-ratelimit-secondly: array<string>, x-hubspot-ratelimit-secondly-remaining: array<string>, x-request-id: array<string>} */
-        $headers = $response->getHeaders();
-
-        return new Response($data, Meta::fromHeaders($headers));
+        return $data;
     }
 }
