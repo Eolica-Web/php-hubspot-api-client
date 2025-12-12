@@ -68,4 +68,9 @@ final readonly class Client
     {
         return new Resources\Owners($this->transporter);
     }
+
+    public function associations(): Resources\Associations
+    {
+        return new Resources\Associations($this->transporter);
+    }
 }
