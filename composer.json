@@ -17,9 +17,9 @@
         }
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "php-http/client-common": "^2.7",
-        "php-http/discovery": "^1.19",
+        "php-http/discovery": "^1.20",
         "php-http/message": "^1.16",
         "psr/http-client-implementation": "1.0",
         "psr/http-factory-implementation": "1.0"
@@ -28,12 +28,12 @@
         "eolica/coding-standard": "^2.0",
         "guzzlehttp/guzzle": "^7.9",
         "mockery/mockery": "^1.6",
-        "pestphp/pest": "^3.0",
+        "pestphp/pest": "^4.0",
         "php-http/mock-client": "^1.6",
-        "phpstan/phpstan": "^1.12",
-        "phpstan/phpstan-mockery": "^1.1",
-        "rector/rector": "^1.2",
-        "symfony/var-dumper": "^7.1"
+        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan-mockery": "^2.0",
+        "rector/rector": "^2.0",
+        "symfony/var-dumper": "^8.0"
     },
     "autoload": {
         "psr-4": {
