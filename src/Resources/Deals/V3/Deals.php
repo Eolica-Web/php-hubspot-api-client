@@ -48,7 +48,7 @@ final readonly class Deals extends Resource
         ?bool $archived = null,
         ?string $idProperty = null,
     ): ReadResponse {
-        /** @var Response<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool, associations: array<string, array{results: array<array<string, string>>}>|null}>> */
+        /** @var Response<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool, associations: array<string, array{results: array<array<string, string>>}>|null}> */
         $response = $this->transporter->get("/crm/v3/objects/deals/{$id}", [
             'properties' => $this->parseListParameter($properties),
             'propertiesWithHistory' => $this->parseListParameter($propertiesWithHistory),

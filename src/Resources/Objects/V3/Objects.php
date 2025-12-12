@@ -28,7 +28,7 @@ final readonly class Objects extends Resource
         ?bool $archived = null,
         ?string $idProperty = null,
     ): ReadResponse {
-        /** @var Response<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool}>> */
+        /** @var Response<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool}> */
         $response = $this->transporter->get("/crm/v3/objects/{$this->type}/{$id}", [
             'properties' => $this->parseListParameter($properties),
             'propertiesWithHistory' => $this->parseListParameter($propertiesWithHistory),
