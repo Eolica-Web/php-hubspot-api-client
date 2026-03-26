@@ -1,7 +1,7 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "eolica/hubspot-api-client",
     "description": "Hubspot API PHP client",
-    "version": "1.0.0",
     "keywords": [
         "eolica",
         "hubspot"
@@ -47,6 +47,23 @@
         "psr-4": {
             "Eolica\\Hubspot\\Tests\\": "tests"
         }
+    },
+    "scripts": {
+        "lint": [
+            "ecs check"
+        ],
+        "lint:fix": [
+            "ecs check --fix"
+        ],
+        "analyse": [
+            "phpstan analyse"
+        ],
+        "test": [
+            "pest --colors=always --parallel"
+        ],
+        "refactor": [
+            "rector process"
+        ]
     },
     "config": {
         "sort-packages": true,
