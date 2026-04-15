@@ -7,6 +7,7 @@ namespace Eolica\Hubspot\Api\Crm\V3;
 use Eolica\Hubspot\Api\Crm\V3\Contacts\BatchReadResponse;
 use Eolica\Hubspot\Api\Crm\V3\Contacts\CreateResponse;
 use Eolica\Hubspot\Api\Crm\V3\Contacts\ReadResponse;
+use Eolica\Hubspot\Api\Crm\V3\Contacts\SearchResponse;
 use Eolica\Hubspot\Api\Crm\V3\Contacts\UpdateResponse;
 use Eolica\Hubspot\Http\Response;
 use Eolica\Hubspot\Resources\Resource;
@@ -88,5 +89,31 @@ final readonly class Contacts extends Resource
         ]);
 
         return BatchReadResponse::fromResponse($response);
+    }
+
+    /**
+     * @param list<array{filters: list<array{propertyName: string, operator: string, value?: string, highValue?: string, values?: list<string>}>}> $filterGroups
+     * @param list<string>|null $sorts
+     * @param list<string>|null $properties
+     */
+    public function search(
+        ?string $query = null,
+        ?array $filterGroups = null,
+        ?array $sorts = null,
+        ?array $properties = null,
+        ?int $limit = null,
+        ?string $after = null,
+    ): SearchResponse {
+        /** @var Response<array{total: int, results: array<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool}>, paging?: array{next?: array{after: string}}}> */
+        $response = $this->transporter->post('/crm/v3/objects/contacts/search', [
+            'query' => $query,
+            'filterGroups' => $filterGroups,
+            'sorts' => $sorts,
+            'properties' => $properties,
+            'limit' => $limit,
+            'after' => $after,
+        ]);
+
+        return SearchResponse::fromResponse($response);
     }
 }

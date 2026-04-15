@@ -84,7 +84,7 @@ final readonly class Transporter
     private function parseBody(array $body): string
     {
         // @var string
-        return json_encode($body, flags: JSON_THROW_ON_ERROR);
+        return json_encode(array_filter($body, fn ($value) => $value !== null), flags: JSON_THROW_ON_ERROR);
     }
 
     /**

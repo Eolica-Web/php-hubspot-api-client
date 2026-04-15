@@ -9,15 +9,15 @@ final readonly class MetaRateLimit
     public function __construct(
         public string $daily,
         public string $dailyRemaining,
-        public string $intervalMilliseconds,
-        public string $max,
-        public string $remaining,
-        public string $secondly,
-        public string $secondlyRemaining,
+        public ?string $intervalMilliseconds,
+        public ?string $max,
+        public ?string $remaining,
+        public ?string $secondly,
+        public ?string $secondlyRemaining,
     ) {}
 
     /**
-     * @param array{daily: string, dailyRemaining: string, intervalMilliseconds: string, max: string, remaining: string, secondly: string, secondlyRemaining: string} $primitives
+     * @param array{daily: string, dailyRemaining: string, intervalMilliseconds: ?string, max: ?string, remaining: ?string, secondly: ?string, secondlyRemaining: ?string} $primitives
      */
     public static function fromPrimitives(array $primitives): self
     {

@@ -23,11 +23,11 @@ final readonly class Meta
         $rateLimit = MetaRateLimit::fromPrimitives([
             'daily' => $headers['x-hubspot-ratelimit-daily'][0],
             'dailyRemaining' => $headers['x-hubspot-ratelimit-daily-remaining'][0],
-            'intervalMilliseconds' => $headers['x-hubspot-ratelimit-interval-milliseconds'][0],
-            'max' => $headers['x-hubspot-ratelimit-max'][0],
-            'remaining' => $headers['x-hubspot-ratelimit-remaining'][0],
-            'secondly' => $headers['x-hubspot-ratelimit-secondly'][0],
-            'secondlyRemaining' => $headers['x-hubspot-ratelimit-secondly-remaining'][0],
+            'intervalMilliseconds' => $headers['x-hubspot-ratelimit-interval-milliseconds'][0] ?? null,
+            'max' => $headers['x-hubspot-ratelimit-max'][0] ?? null,
+            'remaining' => $headers['x-hubspot-ratelimit-remaining'][0] ?? null,
+            'secondly' => $headers['x-hubspot-ratelimit-secondly'][0] ?? null,
+            'secondlyRemaining' => $headers['x-hubspot-ratelimit-secondly-remaining'][0] ?? null,
         ]);
 
         return new self($correlationId, $rateLimit);
