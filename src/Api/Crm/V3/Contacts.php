@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Eolica\Hubspot\Api\Crm\V3;
 
 use Eolica\Hubspot\Api\Crm\V3\Contacts\BatchReadResponse;
+use Eolica\Hubspot\Api\Crm\V3\Contacts\BatchUpdateResponse;
 use Eolica\Hubspot\Api\Crm\V3\Contacts\CreateResponse;
 use Eolica\Hubspot\Api\Crm\V3\Contacts\ReadResponse;
 use Eolica\Hubspot\Api\Crm\V3\Contacts\SearchResponse;
@@ -89,6 +90,24 @@ final readonly class Contacts extends Resource
         ]);
 
         return BatchReadResponse::fromResponse($response);
+    }
+
+    /**
+     * @param list<array{
+     *     id: string,
+     *     properties: array<string, mixed>,
+     *     idProperty?: string,
+     *     objectWriteTraceId?: string,
+     * }> $inputs
+     */
+    public function batchUpdate(array $inputs): BatchUpdateResponse
+    {
+        /** @var Response<array{status: string, results: array<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool}>, startedAt: string, completedAt: string}> */
+        $response = $this->transporter->post('/crm/v3/objects/contacts/batch/update', [
+            'inputs' => $inputs,
+        ]);
+
+        return BatchUpdateResponse::fromResponse($response);
     }
 
     /**

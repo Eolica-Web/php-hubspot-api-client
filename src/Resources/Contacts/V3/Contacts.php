@@ -85,4 +85,22 @@ final readonly class Contacts extends Resource
 
         return BatchReadResponse::fromResponse($response);
     }
+
+    /**
+     * @param list<array{
+     *     id: string,
+     *     properties: array<string, mixed>,
+     *     idProperty?: string,
+     *     objectWriteTraceId?: string,
+     * }> $inputs
+     */
+    public function batchUpdate(array $inputs): BatchUpdateResponse
+    {
+        /** @var Response<array{status: string, results: array<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool}>, startedAt: string, completedAt: string}> */
+        $response = $this->transporter->post('/crm/v3/objects/contacts/batch/update', [
+            'inputs' => $inputs,
+        ]);
+
+        return BatchUpdateResponse::fromResponse($response);
+    }
 }
