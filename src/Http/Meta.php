@@ -12,22 +12,24 @@ final readonly class Meta
     ) {}
 
     /**
-     * @param array{x-hubspot-correlation-id: array<string>, x-hubspot-ratelimit-daily: array<string>, x-hubspot-ratelimit-daily-remaining: array<string>, x-hubspot-ratelimit-interval-milliseconds: array<string>, x-hubspot-ratelimit-max: array<string>, x-hubspot-ratelimit-remaining: array<string>, x-hubspot-ratelimit-secondly: array<string>, x-hubspot-ratelimit-secondly-remaining: array<string>, x-request-id: array<string>} $headers
+     * @param array<string, array<string>> $headers
      */
     public static function fromHeaders(array $headers): self
     {
         $headers = array_change_key_case($headers, CASE_LOWER);
 
-        $correlationId = $headers['x-hubspot-correlation-id'][0];
+        $header = static fn (string $key): ?string => $headers[$key][0] ?? null;
+
+        $correlationId = $header('x-hubspot-correlation-id') ?? $header('x-request-id') ?? '';
 
         $rateLimit = MetaRateLimit::fromPrimitives([
-            'daily' => $headers['x-hubspot-ratelimit-daily'][0],
-            'dailyRemaining' => $headers['x-hubspot-ratelimit-daily-remaining'][0],
-            'intervalMilliseconds' => $headers['x-hubspot-ratelimit-interval-milliseconds'][0] ?? null,
-            'max' => $headers['x-hubspot-ratelimit-max'][0] ?? null,
-            'remaining' => $headers['x-hubspot-ratelimit-remaining'][0] ?? null,
-            'secondly' => $headers['x-hubspot-ratelimit-secondly'][0] ?? null,
-            'secondlyRemaining' => $headers['x-hubspot-ratelimit-secondly-remaining'][0] ?? null,
+            'daily' => $header('x-hubspot-ratelimit-daily') ?? '',
+            'dailyRemaining' => $header('x-hubspot-ratelimit-daily-remaining') ?? '',
+            'intervalMilliseconds' => $header('x-hubspot-ratelimit-interval-milliseconds'),
+            'max' => $header('x-hubspot-ratelimit-max'),
+            'remaining' => $header('x-hubspot-ratelimit-remaining'),
+            'secondly' => $header('x-hubspot-ratelimit-secondly'),
+            'secondlyRemaining' => $header('x-hubspot-ratelimit-secondly-remaining'),
         ]);
 
         return new self($correlationId, $rateLimit);
