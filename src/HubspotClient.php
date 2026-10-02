@@ -49,4 +49,9 @@ final readonly class HubspotClient
     {
         return new Api\Cms($this->transporter);
     }
+
+    public function communicationPreferences(): Api\CommunicationPreferences
+    {
+        return new Api\CommunicationPreferences($this->transporter);
+    }
 }
