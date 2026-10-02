@@ -7,6 +7,7 @@ namespace Eolica\Hubspot\Api\Crm\V2026_09;
 use Eolica\Hubspot\Api\Crm\V2026_09\Objects\BatchReadResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Objects\CreateResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Objects\ReadResponse;
+use Eolica\Hubspot\Api\Crm\V2026_09\Objects\SearchResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Objects\UpdateResponse;
 use Eolica\Hubspot\Http\Response;
 use Eolica\Hubspot\Http\Transporter;
@@ -92,5 +93,31 @@ final readonly class Objects extends Resource
         ]);
 
         return BatchReadResponse::fromResponse($response);
+    }
+
+    /**
+     * @param list<array{filters: list<array{propertyName: string, operator: string, value?: string, highValue?: string, values?: list<string>}>}> $filterGroups
+     * @param list<string>|null $sorts
+     * @param list<string>|null $properties
+     */
+    public function search(
+        ?string $query = null,
+        ?array $filterGroups = null,
+        ?array $sorts = null,
+        ?array $properties = null,
+        ?int $limit = null,
+        ?string $after = null,
+    ): SearchResponse {
+        /** @var Response<array{total: int, results: array<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool}>, paging?: array{next?: array{after: string}}}> */
+        $response = $this->transporter->post("/crm/objects/2026-09/{$this->type}/search", [
+            'query' => $query,
+            'filterGroups' => $filterGroups,
+            'sorts' => $sorts,
+            'properties' => $properties,
+            'limit' => $limit,
+            'after' => $after,
+        ]);
+
+        return SearchResponse::fromResponse($response);
     }
 }
