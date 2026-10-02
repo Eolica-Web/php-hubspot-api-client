@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Eolica\Hubspot\Api\Crm\V2026_09;
 
+use Eolica\Hubspot\Api\Crm\V2026_09\Deals\CreateResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Deals\ListResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Deals\ReadResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Deals\UpdateResponse;
@@ -61,6 +62,21 @@ final readonly class Deals extends Resource
         ]);
 
         return ReadResponse::fromResponse($response);
+    }
+
+    /**
+     * @param array<string, mixed> $properties
+     * @param list<array{types: list<array{associationCategory: 'HUBSPOT_DEFINED'|'INTEGRATOR_DEFINED'|'USER_DEFINED', associationTypeId: int}>, to: array{id: string}}> $associations
+     */
+    public function create(array $properties, ?array $associations = null): CreateResponse
+    {
+        /** @var Response<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool}> */
+        $response = $this->transporter->post('/crm/objects/2026-09/0-3', [
+            'properties' => $properties,
+            'associations' => $associations,
+        ]);
+
+        return CreateResponse::fromResponse($response);
     }
 
     /**
