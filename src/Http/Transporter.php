@@ -35,7 +35,7 @@ final readonly class Transporter
     }
 
     /**
-     * @param array<string, mixed> $body
+     * @param array<string, mixed>|list<array<string, mixed>> $body
      * @param array<string, mixed> $parameters
      *
      * @return Response<array<array-key, mixed>>
@@ -79,7 +79,7 @@ final readonly class Transporter
     }
 
     /**
-     * @param array<string, mixed> $body
+     * @param array<string, mixed>|list<array<string, mixed>> $body
      */
     private function parseBody(array $body): string
     {

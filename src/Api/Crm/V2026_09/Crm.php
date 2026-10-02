@@ -10,6 +10,11 @@ final readonly class Crm
 {
     public function __construct(private Transporter $transporter) {}
 
+    public function associations(): Associations
+    {
+        return new Associations($this->transporter);
+    }
+
     public function contacts(): Contacts
     {
         return new Contacts($this->transporter);
