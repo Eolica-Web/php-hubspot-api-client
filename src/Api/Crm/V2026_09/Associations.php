@@ -44,6 +44,19 @@ final readonly class Associations extends Resource
         return CreateResponse::fromResponse($response);
     }
 
+    /**
+     * @param list<array{from: array{id: string}, to: array{id: string}}> $inputs
+     */
+    public function batchCreateDefault(string $fromObjectType, string $toObjectType, array $inputs): CreateResponse
+    {
+        /** @var Response<array{results: array<array{from: array{id: string}, to: array{id: string}, associationSpec: array{associationCategory: 'HUBSPOT_DEFINED'|'INTEGRATOR_DEFINED'|'USER_DEFINED', associationTypeId: int}}>, completedAt: string, startedAt: string, status: 'CANCELED'|'COMPLETE'|'PENDING'|'PROCESSING'}> */
+        $response = $this->transporter->post("/crm/associations/2026-09/{$fromObjectType}/{$toObjectType}/batch/associate/default", [
+            'inputs' => $inputs,
+        ]);
+
+        return CreateResponse::fromResponse($response);
+    }
+
     public function delete(string $objectType, string $objectId, string $toObjectType, string $toObjectId): DeleteResponse
     {
         /** @var Response<array{}> */
