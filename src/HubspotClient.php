@@ -54,4 +54,9 @@ final readonly class HubspotClient
     {
         return new Api\CommunicationPreferences($this->transporter);
     }
+
+    public function marketing(): Api\Marketing
+    {
+        return new Api\Marketing($this->transporter);
+    }
 }
