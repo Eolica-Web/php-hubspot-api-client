@@ -14,4 +14,9 @@ final readonly class Cms
     {
         return new Cms\V3\Cms($this->transporter);
     }
+
+    public function v2026_09(): Cms\V2026_09\Cms
+    {
+        return new Cms\V2026_09\Cms($this->transporter);
+    }
 }
