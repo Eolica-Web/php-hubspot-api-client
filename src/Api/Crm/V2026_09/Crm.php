@@ -20,6 +20,11 @@ final readonly class Crm
         return new Deals($this->transporter);
     }
 
+    public function objects(string $type): Objects
+    {
+        return new Objects($type, $this->transporter);
+    }
+
     public function owners(): Owners
     {
         return new Owners($this->transporter);
