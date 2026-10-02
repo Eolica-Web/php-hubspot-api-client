@@ -6,6 +6,7 @@ namespace Eolica\Hubspot\Api\Crm\V2026_09;
 
 use Eolica\Hubspot\Api\Crm\V2026_09\Associations\CreateResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Associations\DeleteResponse;
+use Eolica\Hubspot\Api\Crm\V2026_09\Associations\ListLabelsResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Associations\ListResponse;
 use Eolica\Hubspot\Http\Response;
 use Eolica\Hubspot\Resources\Resource;
@@ -18,6 +19,14 @@ final readonly class Associations extends Resource
         $response = $this->transporter->get("/crm/objects/2026-09/{$objectType}/{$objectId}/associations/{$toObjectType}");
 
         return ListResponse::fromResponse($response);
+    }
+
+    public function listLabels(string $fromObjectType, string $toObjectType): ListLabelsResponse
+    {
+        /** @var Response<array{results: array<array{category: 'HUBSPOT_DEFINED'|'INTEGRATOR_DEFINED'|'USER_DEFINED'|'WORK', typeId: int, label?: string|null, fromObjectTypeId?: string, toObjectTypeId?: string}>}> */
+        $response = $this->transporter->get("/crm/associations/2026-09/{$fromObjectType}/{$toObjectType}/labels");
+
+        return ListLabelsResponse::fromResponse($response);
     }
 
     public function createDefault(string $objectType, string $objectId, string $toObjectType, string $toObjectId): CreateResponse
