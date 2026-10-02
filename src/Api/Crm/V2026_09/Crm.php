@@ -24,4 +24,9 @@ final readonly class Crm
     {
         return new Owners($this->transporter);
     }
+
+    public function properties(): Properties
+    {
+        return new Properties($this->transporter);
+    }
 }
