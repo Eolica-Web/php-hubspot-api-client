@@ -6,6 +6,7 @@ namespace Eolica\Hubspot\Api\Crm\V2026_09;
 
 use Eolica\Hubspot\Api\Crm\V2026_09\Contacts\BatchReadResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Contacts\BatchUpdateResponse;
+use Eolica\Hubspot\Api\Crm\V2026_09\Contacts\BatchUpsertResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Contacts\CreateResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Contacts\ReadResponse;
 use Eolica\Hubspot\Api\Crm\V2026_09\Contacts\SearchResponse;
@@ -108,6 +109,24 @@ final readonly class Contacts extends Resource
         ]);
 
         return BatchUpdateResponse::fromResponse($response);
+    }
+
+    /**
+     * @param list<array{
+     *     id: string,
+     *     properties: array<string, string>,
+     *     idProperty?: string,
+     *     objectWriteTraceId?: string,
+     * }> $inputs
+     */
+    public function batchUpsert(array $inputs): BatchUpsertResponse
+    {
+        /** @var Response<array{status: 'CANCELED'|'COMPLETE'|'PENDING'|'PROCESSING', results: array<array{id: string, properties: array<string, string>, createdAt: string, updatedAt: string, archived: bool, new: bool}>, startedAt: string, completedAt: string}> */
+        $response = $this->transporter->post('/crm/objects/2026-09/contacts/batch/upsert', [
+            'inputs' => $inputs,
+        ]);
+
+        return BatchUpsertResponse::fromResponse($response);
     }
 
     /**
