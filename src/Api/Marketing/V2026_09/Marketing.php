@@ -14,4 +14,9 @@ final readonly class Marketing
     {
         return new TransactionalEmails($this->transporter);
     }
+
+    public function emailCampaigns(): EmailCampaigns
+    {
+        return new EmailCampaigns($this->transporter);
+    }
 }
